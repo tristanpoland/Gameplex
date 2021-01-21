@@ -1,0 +1,133 @@
+{
+  "suits": [
+    {
+      "name": "Communications",
+      "symbol": "&#128276;"
+    },
+    {
+      "name": "Defense",
+      "symbol": "&#9960;"
+    },
+    {
+      "name": "Agriculture",
+      "symbol": "&#9880;"
+    },
+    {
+      "name": "Finance",
+      "symbol": "&#128176;"
+    }
+  ],
+  "ranks": [
+    {
+      "name": "Industry",
+      "symbol": "&#9881;",
+      "desc": "A pyramid in which Royalty is at the top, Peasantry is at the bottom, and Ministry maintains the structure.",
+      "desc_template": "{{suit}}",
+      "by_suit": {
+        "Communications": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FIC.png?1492005237909",
+          "desc": "Ad / Intel Complex",
+          "markdown": "[How we are all pushed, filed, stamped, indexed, briefed, debriefed or numbered – by online biz all day](https://archive.is/IETjQ)"
+        },
+        "Defense": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FID.png?1492005241997",
+          "desc": "Military / Industrial Simplex",
+          "markdown": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/4uEtdO8nJc8?rel=0\" frameborder=\"0\" allowfullscreen></iframe>"
+        },
+        "Agriculture": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FIA.png?1492005236808",
+          "desc": "GMO",
+          "markdown": "[GMOs, just like your local politician](https://archive.is/G03Ww)"
+        },
+        "Finance": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FIF.png?1492005236627",
+          "desc": "Banking",
+          "markdown": "[The profiteers of division](https://archive.is/quI19)"
+        }
+      }
+    },
+    {
+      "name": "Royalty",
+      "symbol": "&#128081;",
+      "desc": "Too big to fail. Above the law.",
+      "desc_template": "{{suit}} oligarch",
+      "by_suit": {
+        "Communications": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FRC.png?1492005238463",
+          "desc": "Disruptor",
+          "markdown": "[Zuckerberg 'private' family photo exposed by Facebook sharing](http://www.telegraph.co.uk/technology/facebook/9767266/Zuckerberg-private-family-photo-exposed-by-Facebook-sharing.html)"
+        },
+        "Defense": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FRD.png?1492005236449",
+          "desc": "Contractor",
+          "markdown": "[Trump’s Secret Little Prince](https://theintercept.com/2017/04/05/intercepted-podcast-trumps-secret-little-prince/)"
+        },
+        "Agriculture": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FRA.png?1492005237689",
+          "desc": "Seed Copyright Holder",
+          "markdown": "[Supreme Court hands Monsanto victory over farmers on GMO seed patents, ability to sue](https://www.rt.com/usa/monsanto-patents-sue-farmers-547/)"
+        },
+        "Finance": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FRF.png?1492005239486",
+          "desc": "Banker",
+          "markdown": "[Why Only One Top Banker Went to Jail for the Financial Crisis](https://archive.is/7rJ0M)"
+        }
+      }
+    },
+    {
+      "name": "Ministry",
+      "symbol": "&#9873;",
+      "desc": "Follow the libertarian law of non-intervention, unless Royalty (who is <em>above</em> the law) is concerned.",
+      "desc_template": "Minister of {{suit}}",
+      "markdown": "[![Austerity](https://cdn.glitch.com/aa75cf3d-1c59-4db3-97d3-9b95e2bfb2fb%2Fausterity.jpg?1497721102033)](https://cdn.glitch.com/aa75cf3d-1c59-4db3-97d3-9b95e2bfb2fb%2Fausterity.jpg?1497721102033)",
+      "by_suit": {
+        "Communications": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FMC.png?1492005240603",
+          "desc": "Yes Minister",
+          "markdown": "[US Bullies Spain into Proposed Website Blocking Law](https://archive.is/GKlq)"
+        },
+        "Defense": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FMD.png?1492005239160",
+          "desc": "Minister of Fear",
+          "markdown": "<blockquote class=\"twitter-video\" data-lang=\"en\"><p lang=\"en\" dir=\"ltr\">I&#39;m clear: if human rights laws get in the way of tackling extremism and terrorism, we will change those laws to keep British people safe. <a href=\"https://t.co/8EfUJYUDMK\">pic.twitter.com/8EfUJYUDMK</a></p>&mdash; Theresa May (@theresa_may) <a href=\"https://twitter.com/theresa_may/status/872181737933217794\">June 6, 2017</a></blockquote><script async src=\"//platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>"
+        },
+        "Agriculture": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FMA.png?1492005238767",
+          "markdown": "[Attack of the bee killers](http://www.politico.eu/article/europes-lost-colonies-bees-neonicotinoids/)"
+        },
+        "Finance": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FMF.png?1492005239833",
+          "markdown": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/Bu2wNKlVRzE?rel=0&amp;start=43\" frameborder=\"0\" allowfullscreen></iframe>"
+        }
+      }
+    },
+    {
+      "name": "Peasantry",
+      "symbol": "&#128106;",
+      "desc": "Statistically, it's <strong>you</strong>.",
+      "desc_template": "{{suit}} consumer",
+      "by_suit": {
+        "Communications": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FPC.png?1492005242522",
+          "desc": "Hacked",
+          "markdown": "[Timeline of NSA Domestic Spying](https://archive.is/dI35V)"
+        },
+        "Defense": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FPD.png?1492005241026",
+          "desc": "Wounded",
+          "markdown": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/VK6rZ--DhZM?rel=0\" frameborder=\"0\" allowfullscreen></iframe>"
+        },
+        "Agriculture": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FPA.png?1492005240210",
+          "desc": "Malnourished",
+          "markdown": "[Farmers' suicides in India](https://en.wikipedia.org/wiki/Farmers%27_suicides_in_India)"
+        },
+        "Finance": {
+          "src": "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2FPF.png?1492005241502",
+          "desc": "Bankrupt",
+          "markdown": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/PDylgzybWAw?rel=0\" frameborder=\"0\" allowfullscreen></iframe>"
+        }
+      }
+    }
+  ]
+}

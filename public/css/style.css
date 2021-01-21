@@ -1,0 +1,141 @@
+
+@font-face {
+  font-family: alef-emoji;
+  
+  /* Fonts for text outside emoji blocks */
+  src:
+       url(https://cdn.glitch.com/6c90e502-e5c3-4cc0-b081-31c072a60704%2Femojione-svg.woff2?1494102761093) format('woff2'),
+       url(https://fonts.gstatic.com/s/alef/v8/YSq5FGaxu3aLqDeLnbayWg.woff2) format('woff2'),
+       url(https://fonts.gstatic.com/s/alef/v8/PgKMCGPCV9cpBC0J2OLAhg.woff2) format('woff2'),
+       local(Arial);
+}
+@font-face {
+  font-family: alef-digits;
+  src:
+       url(https://fonts.gstatic.com/s/alef/v8/PgKMCGPCV9cpBC0J2OLAhg.woff2) format('woff2'),
+       local(Arial);
+  unicode-range: U+30-39;
+}
+body {
+  padding-top: 70px;
+  padding-bottom: 105px; /* tweak against disappearing input line bug */
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
+.btn, .navbar, .label {
+  font-family: 'alef-digits', 'alef-emoji', sans-serif;  
+}
+.mustache { display: none; }
+.card-modal img {max-height: 16em; }
+.rank-modal img, .img-qr {max-height: 8em; }
+#hand-row img {max-height: 12em; }
+.navbar-brand img { max-height:1.5em; display: inline }
+/* flex styles based on http://www.bootply.com/oWBElgjtTn */
+html,body {
+	height:100%;
+  max-height:100%;
+}
+.rtl { direction: rtl; }
+.ltr { direction: ltr; }
+
+.container, .row {
+	height:100%;
+  max-height:100%;
+}
+
+.flex-row /*, .flex-row > div[class*='col-'] */ {  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex: 1;
+}
+
+.flex-col {
+  display: flex;
+  display: -webkit-flex;
+	flex-flow: column /* nowrap */;
+}
+
+.flex-grow {
+	display: flex;
+  -webkit-flex: 10;
+  flex: 10;
+}
+
+/* Stuff based on original socket.io demo */
+
+.usernameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.1em solid black;
+  outline: none;
+  padding-bottom: 1em;
+  text-align: center;
+  width: 100%;
+  font-size: 120%;
+  color: black;
+  font-weight: 100;
+}
+
+
+.chatArea {
+}
+    
+#messages-div {
+  font-size: 110%;
+  background: black;
+}
+
+#messages-div, #game-div {
+  overflow-y: scroll;  
+}
+
+.inputMessage {
+  /* font-size: 100%; */
+}
+
+.log {
+  color: gray;
+  font-size: 70%;
+  margin: 5px;
+}
+
+.message.typing .messageBody {
+  color: gray;
+}
+
+.username {
+  font-weight: 700;
+  overflow: hidden;
+  padding: 0 0.5em;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+/* responsive youtube embeds
+   see https://avexdesigns.com/responsive-youtube-embed/
+*/
+.card-body {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.card-body iframe,
+.card-body object,
+.card-body embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+}
+
+.card-body img {
+  width: auto;
+}

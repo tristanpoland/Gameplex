@@ -1,19 +1,29 @@
 {
-  "name": "chat",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.14.0",
-    "socket.io": "^1.5.0",
-    "fs": "0.0.1-security",
-    "https": "^1.0.0"
-  },
-  "devDependencies": {},
+  "name": "go-fish",
+  "version": "0.1.0",
+  "description": "Socket.io multiplayer game",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node index.js"
   },
-  "author": "jose",
-  "license": "ISC"
+  "dependencies": {
+    "coffee-script": "^1.12.6",
+    "express": "^4.15.3",
+    "requirejs": "^2.3.3",
+    "socket.io": "^2.0.1",
+    "sanitize-html": "^1.14.1",
+    "showdown": "^1.6.4"
+  },
+  "engines": {
+    "node": "4.4.5"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "socketio",
+    "chat",
+    "game",
+    "cards"
+  ],
+  "license": "AGPL-3.0"
 }
