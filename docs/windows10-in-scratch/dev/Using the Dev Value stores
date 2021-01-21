@@ -1,0 +1,28 @@
+
+
+
+
+
+
+
+
+
+<h1 style="text-align: center;">Developer Friendly Data Store Cheat Sheet</h1>
+<p>&nbsp;</p>
+<ol>
+<li>Color that mouse is touching</li>
+<li>Is Mouse Being clicked? (true/false)</li>
+<li>Mouse X</li>
+<li>Mouse Y</li>
+<li>Loudness lvl from mic</li>
+<li>timer (sec,msec)</li>
+<li>Scratch Username</li>
+<li>Mouse Distance from center</li>
+<li>Random number 1 to 4362894567392047593204857693208567493057649302856743085764930857694032847569032485756943028475693075639208476563824545678654356786</li>
+<li>Last input for prompt</li>
+<li>Blank (-)</li>
+<li>Blank (-)</li>
+<li>Month</li>
+<li>Day</li>
+<li>Year</li>
+</ol>
