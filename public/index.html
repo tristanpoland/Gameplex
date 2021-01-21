@@ -17,6 +17,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+  <!-- script src="https://watch.battleforthenet.com/widget.js" async></script -->
   <title>Multiplayer Go Fish</title>
   <meta property="og:title" content="Multiplayer Go Fish game @ Glitch"/>
   <meta property="og:type" content="game"/>
@@ -29,10 +30,12 @@
   <meta name="twitter:description" content="Play with friends, or remix with your own deck" />
   <meta name="twitter:image" content="https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2Fgo-fish-color.png?1493755260516" />
   <meta name="twitter:url" content="https://go-fish.glitch.me/" />
+  <meta name="flattr:id" content="kn9xpr">
   <link href="https://fonts.googleapis.com/css?family=Alef" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet" type="text/css">
   <link id="favicon" rel="icon" type="image/png" href=
   "https://cdn.glitch.com/ccb30db3-78cd-46da-af4b-a75cabfc5233%2Fgo-fish-color.png?1493755260516">
+  <script src="https://watch.battleforthenet.com/widget.js" async></script>
 </head>
 <body>
   <nav id="top-bar" class="navbar navbar-inverse navbar-fixed-top">
@@ -251,9 +254,8 @@
               </div>
               <div class="media-body">
                 <h4 class="media-heading">
-                  <a target="_blank" href="card.html#{{ rank }}/{{ suit }}">
+                  <a target="_blank" href="card.html#{{ rank }}/{{ suit }}"><span class="glyphicon glyphicon-link"></span></a>
                   {{ desc }}
-                  </a>
                 </h4>
                 <div class="card-body">
                   {{{ body }}}
@@ -291,9 +293,8 @@
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">
-                    <a target="_blank" href="card.html#{{ rank }}/{{ suit }}">
+                    <a target="_blank" href="card.html#{{ rank }}/{{ suit }}"><span class="glyphicon glyphicon-link"></span></a>
                     {{ desc }}
-                    </a>
                   </h4>
                   <div class="card-body">
                     {{{ body }}}
