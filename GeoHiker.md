@@ -1,7 +1,7 @@
-#<div align="center"> Geo Hiker</div>
+#<div align="center"> Geo Hiker
 --
 ##<div align="center"> for fitbit versa/android
-Get excersize the fun way</div>
+Get excersize the fun way
 
 Gameplex GeoHiker provides a fun, interactive way to excersize by giving the user quests to complete in specific locations. The app picks an interesting nearby location for you to visit and will add a trophy to the trophies screen. When you clich the trophy, the quest screen appears, and displays several badges, you will earn these badges as you complete the activities next to each one (tap them for more info). Once all badges under a quest are completed, you recive a checkmark next to it's trophy.
 	
