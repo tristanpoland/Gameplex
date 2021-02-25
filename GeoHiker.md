@@ -1,6 +1,5 @@
-Geo Hiker
+Geo Hiker for fitbit versa/android
 --
-for fitbit versa/android
 
 Get excersize the fun way
 
