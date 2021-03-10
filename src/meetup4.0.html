@@ -5,39 +5,241 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
-    <script src="https://webrtc.github.io/adapter/adapter-4.2.2.js"></script>
-    <script src="/static/js/auth.js"></script>
-    <script src="/static/js/video.js"></script>
   </head>
   <body>
     
         <div class="container">
       <header>
-        <h1><a href="/">vchat</a></h1>
-        <h2><a href="/">a simple video chat app</a></h2>
+        <h1>Gameplex Meetup 4.0</h1>
       </header>
+      <div class="wsite-spacer" style="height:50px;"></div>
 
-
-      <div class="row">
-        <div class="col"></div>
-        <div class="col-md-auto align-self-center">
-          <p id="login"><b>NOTE</b>: You are not currently logged in. If you'd like to start your own
-            chat room please <button type="button" class="btn btn-light" onclick="document.location='/'">log in</button></p>
-          <div id="url" class="alert alert-dark" role="alert">
-            <span id="roomIntro">ROOM URL</span>: <span id="roomUrl"></span>
-          </div>
-        </div>
-        <div class="col"></div>
+      <div><div id="856492405199613555" align="inherit" style="width: 100%; overflow-y: hidden;" class="wcustomhtml"><!DOCTYPE html>
+      <html>
+      <head>
+        <script src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <style>
+          body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+          }
+          video {
+            max-width: calc(50%);
+            margin: 0;
+            box-sizing: border-box;
+            border-radius: 0px;
+            padding: 0;
+            background: #AARRGGBB ;
+          }
+          .copy {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px;
+            color: white;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="copy">Send your URL to a friend to start a video call</div>
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay controls="controls"></video>
+        <script>// Generate random room name if needed
+      if (!location.hash) {
+        location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+      }
+      const roomHash = location.hash.substring(1);
+      
+      // TODO: Replace with your own channel ID
+      const drone = new ScaleDrone('yiS12Ts5RdNhebyM');
+      // Room name needs to be prefixed with 'observable-'
+      const roomName = 'observable-' + roomHash;
+      const configuration = {
+        iceServers: [{
+          urls: 'stun:stun.l.google.com:19302'
+        }]
+      };
+      let room;
+      let pc;
+      
+      
+      function onSuccess() {};
+      function onError(error) {
+        console.error(error);
+      };
+      
+      drone.on('open', error => {
+        if (error) {
+          return console.error(error);
+        }
+        room = drone.subscribe(roomName);
+        room.on('open', error => {
+          if (error) {
+            onError(error);
+          }
+        });
+        // We're connected to the room and received an array of 'members'
+        // connected to the room (including us). Signaling server is ready.
+        room.on('members', members => {
+          console.log('MEMBERS', members);
+          // If we are the second user to connect to the room we will be creating the offer
+          const isOfferer = members.length === 2;
+          startWebRTC(isOfferer);
+        });
+      });
+      
+      // Send signaling data via Scaledrone
+      function sendMessage(message) {
+        drone.publish({
+          room: roomName,
+          message
+        });
+      }
+      
+      function startWebRTC(isOfferer) {
+        pc = new RTCPeerConnection(configuration);
+      
+        // 'onicecandidate' notifies us whenever an ICE agent needs to deliver a
+        // message to the other peer through the signaling server
+        pc.onicecandidate = event => {
+          if (event.candidate) {
+            sendMessage({'candidate': event.candidate});
+          }
+        };
+      
+        // If user is offerer let the 'negotiationneeded' event create the offer
+        if (isOfferer) {
+          pc.onnegotiationneeded = () => {
+            pc.createOffer().then(localDescCreated).catch(onError);
+          }
+        }
+      
+        // When a remote stream arrives display it in the #remoteVideo element
+        pc.ontrack = event => {
+          const stream = event.streams[0];
+          if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+            remoteVideo.srcObject = stream;
+          }
+        };
+      
+        navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: true,
+        }).then(stream => {
+          // Display your local video in #localVideo element
+          localVideo.srcObject = stream;
+          // Add your stream to be sent to the conneting peer
+          stream.getTracks().forEach(track => pc.addTrack(track, stream));
+        }, onError);
+      
+        // Listen to signaling data from Scaledrone
+        room.on('data', (message, client) => {
+          // Message was sent by us
+          if (client.id === drone.clientId) {
+            return;
+          }
+      
+          if (message.sdp) {
+            // This is called after receiving an offer or answer from another peer
+            pc.setRemoteDescription(new RTCSessionDescription(message.sdp), () => {
+              // When receiving an offer lets answer it
+              if (pc.remoteDescription.type === 'offer') {
+                pc.createAnswer().then(localDescCreated).catch(onError);
+              }
+            }, onError);
+          } else if (message.candidate) {
+            // Add the new ICE candidate to our connections remote description
+            pc.addIceCandidate(
+              new RTCIceCandidate(message.candidate), onSuccess, onError
+            );
+          }
+        });
+      }
+      
+      function localDescCreated(desc) {
+        pc.setLocalDescription(
+          desc,
+          () => sendMessage({'sdp': pc.localDescription}),
+          onError
+        );
+      }
+      </script>
+      <style>
+      #remoteVideo {
+        border-radius: 15px;
+        background: #AARRGGBB ;
+        padding: 0px;
+      }
+      #localVideo {
+        border-radius: 15px;
+        background: ##AARRGGBB ;
+        padding: 0px;
+      }
+      </style>
+      </body>
+      </html></div>
+      
+      
+      
+      </div>
+      
+      <div class="wsite-spacer" style="height:118px;"></div>
+      
+      <div><div class="wsite-multicol"><div class="wsite-multicol-table-wrap" style="margin:0 -15px;">
+        <table class="wsite-multicol-table">
+          <tbody class="wsite-multicol-tbody">
+            <tr class="wsite-multicol-tr">
+              <td class="wsite-multicol-col" style="width:50%; padding:0 15px;">
+                
+                  
+      
+      <div><div id="706717591990667612" align="inherit" style="width: 100%; overflow-y: hidden;" class="wcustomhtml"><a href="https://gameplexcorp.weebly.com/meetup" name="Leave meeting" class="myButton">Leave Meeting</a>
+      <style>
+      .myButton {
+        box-shadow:inset 0px 0px 0px 0px #f5978e;
+        background:linear-gradient(to bottom, #f24537 40%, #c62d1f 100%);
+        background-color:#f24537;
+        border-radius:6px;
+        border:1px solid #d02718;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Verdana;
+        font-size:16px;
+        padding:6px 24px;
+        text-decoration:none;
+        text-shadow:-1px -1px 25px #810e05;
+      }
+      .myButton:hover {
+        background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+        background-color:#c62d1f;
+      }
+      .myButton:active {
+        position:left;
+        top:1px;
+      }
+      </style></div>
+      
+      
+      
       </div>
 
-      <div id="remotes" class="row">
-        <div class="col-md-6">
-          <div class="videoContainer">
-            <video id="selfVideo" oncontextmenu="return false;"></video>
-            <meter id="localVolume" class="volume" min="-45" max="-20" high="-25" low="-40"></meter>
-          </div>
-        </div>
+
       </div>
-    </div>
-  </body>
-</html>
+    </body>
+
+    <style>
+       body {
+ background-image: url("./resources/index.jpg");
+ background-color: #000000;
+ background-repeat: no-repeat;
+ background-position: center;
+}
+</style>
