@@ -1,0 +1,23 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<html>
+
+<head>
+  <title>Protected Page: Please enter password</title>
+</head>
+
+<body>
+<text id="msg">It appears that the browser you are using does not support Java, please try again with a browser that supports Java.</body>
+
+</html>
+<script>
+var password = prompt("Enter in the password");
+        if (password=="1234") {
+            //location = "media.html"
+
+        }
+        else
+        {
+          document.getElementById("msg").value = "test";
+          //location = "error.html"
+        }
+        </script>
