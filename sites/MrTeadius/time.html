@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<div id=time>Your browser does not support Java Script</div>
+<div id=liveData>Your browser does not support Java Script</div>
 <script language="JavaScript">
 
 // function to calculate local time
@@ -22,11 +22,58 @@ function calcTime(city, offset) {
     nd = new Date(utc + (3600000*offset));
    
     // return time as a string
-    document.getElementById("time").innerHTML = "MrTeadius's " + city + " is " + nd.toLocaleString();
+    document.getElementById("liveData").innerHTML = "MrTeadius's " + city + " was " + nd.toLocaleString(); + "when you opened this page"
 }
 
 
 (calcTime('time', '-5'));
+
+</script>
+<script>
+
+window.addEventListener('load', function()
+{
+    var xhr = null;
+
+    getXmlHttpRequestObject = function()
+    {
+        if(!xhr)
+        {               
+            // Create a new XMLHttpRequest object 
+            xhr = new XMLHttpRequest();
+        }
+        return xhr;
+    };
+
+    updateLiveData = function()
+    {
+        var now = new Date();
+        // Date string is appended as a query with live data 
+        // for not to use the cached version 
+        var url = 'livefeed.txt?' + now.getTime();
+        xhr = getXmlHttpRequestObject();
+        xhr.onreadystatechange = evenHandler;
+        // asynchronous requests
+        xhr.open("GET", url, true);
+        // Send the request over the network
+        xhr.send(null);
+    };
+
+    updateLiveData();
+
+    function evenHandler()
+    {
+        // Check response is ready or not
+        if(xhr.readyState == 4 && xhr.status == 200)
+        {
+            dataDiv = document.getElementById('liveData');
+            // Set current data text
+            dataDiv.innerHTML = xhr.responseText;
+            // Update the live data every 1 sec
+            setTimeout(updateLiveData(), 1000);
+        }
+    }
+});
 
 </script>
 </head>
