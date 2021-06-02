@@ -1,96 +1,246 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script src='https://requirejs.org/docs/release/2.3.6/minified/require.js'/>
-  <script>
-    // Set the path to your videos here (enter: "" if this is in the same file as your videos)
-    let videoFolder = './songs for shuffle/';
-    // Add your list of videos or mp3s here
-var fs = require('fs');
-Const videoslist = fs.readdirSync('./songs for shuffle');
+<title>Simple Music Player</title>
+<!-- Load FontAwesome icons -->
+<link rel="stylesheet"
+		href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
-    // This video will be played after EVERY video
-    // Set it to a single mp4 file or set to "" if you don't want to use it
-    const transitionVideo = ''; // example: 'transition.mp4'
-    // Set to true if you only want one video to play and then stop
-    const playOnlyOne = false;
-    // Set to true if you want to keep looping the first video selected (does nothing if playOnlyOne is true)
-    const loopFirstVideo = false;
-
-    ///////////////////////////
-    // DON'T EDIT BELOW THIS //
-    //////////////////////////
-    videoFolder = videoFolder.substring(videoFolder.length -1) === '/' || videoFolder === "" ? videoFolder : `${videoFolder}/`;
-    const videos = shuffleArr(videosList);
-    let count = 0;
-    let player = null;
-    let mp4Source = null;
-    let isTransition = true;
-
-    function shuffleArr(a) {
-      var j, x, i;
-      for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-      }
-      return a;
-    }
-
-    function setVideoPlayer(video) {
-      if (!video) video = `${videoFolder}${videos[0]}`;
-      if (typeof video === 'number') video = `${videoFolder}${videos[video]}`;
-      document.getElementById('song-title').innerHTML = video.replace("./songs for shuffle/", "");;
-      mp4Source.setAttribute("src", video);
-      player.load();
-      player.play();
-    }
-
-    function playNext() {
-      if(!loopFirstVideo) {
-        if (!transitionVideo || !isTransition) {
-          count++;
-        }
-      }
-
-      if (count > videos.length - 1) count = 0;
-      if (!playOnlyOne) {
-        if (transitionVideo && transitionVideo !== "" && isTransition) {
-          setVideoPlayer(`${videoFolder}${transitionVideo}`);
-          isTransition = false;
-        } else {
-          setVideoPlayer(count);
-          isTransition = true;
-        }
-      }
-    }
-    
-  </script>
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      color: white;
-      font-size: 40;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-  </style>
+<!-- Load the custom CSS style file -->
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
-  <div id='song-title' style='margin-left: auto; -ms-transform: translateX(25%); transform: translateX(25%);'>No Song title found [Error 404]</div>
-  <audio id="videoPlayer" autoplay width="100%" height="100%"
-    style="position:fixed; right:0; bottom:0; min-width:100%; min-height:100%;">
-    <source src="" id="mp4Source" type="video/mp4" />
-</audio>
-  <script>
-    player = document.getElementById("videoPlayer");
-    player.addEventListener("ended", playNext, {passive: true});
-    mp4Source = document.getElementById("mp4Source");
-    setVideoPlayer();
-  </script>
-</body>
+<div class="player">
 
+	<!-- Define the section for displaying details -->
+	<div class="details">
+	<div class="now-playing">PLAYING x OF y</div>
+	<div class="track-art"></div>
+	<div class="track-name">Track Name</div>
+	<div class="track-artist">Track Artist</div>
+	</div>
+
+	<!-- Define the section for displaying track buttons -->
+	<div class="buttons">
+	<div class="prev-track" onclick="prevTrack()">
+		<i class="fa fa-step-backward fa-2x"></i>
+	</div>
+	<div class="playpause-track" onclick="playpauseTrack()">
+		<i class="fa fa-play-circle fa-5x"></i>
+	</div>
+	<div class="next-track" onclick="nextTrack()">
+		<i class="fa fa-step-forward fa-2x"></i>
+	</div>
+	</div>
+
+	<!-- Define the section for displaying the seek slider-->
+	<div class="slider_container">
+	<div class="current-time">00:00</div>
+	<input type="range" min="1" max="100"
+		value="0" class="seek_slider" onchange="seekTo()">
+	<div class="total-duration">00:00</div>
+	</div>
+
+	<!-- Define the section for displaying the volume slider-->
+	<div class="slider_container">
+	<i class="fa fa-volume-down"></i>
+	<input type="range" min="1" max="100"
+		value="99" class="volume_slider" onchange="setVolume()">
+	<i class="fa fa-volume-up"></i>
+	</div>
+</div>
+
+<!-- Load the main script for the player -->
+<script src="main.js"></script>
+</body>
 </html>
+<style>
+body {
+background-color: lightgreen;
+
+/* Smoothly transition the background color */
+transition: background-color .5s;
+}
+
+/* Using flex with the column direction to
+align items in a vertical direction */
+.player {
+height: 95vh;
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+}
+
+.details {
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+margin-top: 25px;
+}
+
+.track-art {
+margin: 25px;
+height: 250px;
+width: 250px;
+background-image: URL(
+	"https://source.unsplash.com/Qrspubmx6kE/640x360");
+background-size: cover;
+background-position: center;
+border-radius: 15%;
+}
+
+/* Changing the font sizes to suitable ones */
+.now-playing {
+font-size: 1rem;
+}
+
+.track-name {
+font-size: 3rem;
+}
+
+.track-artist {
+font-size: 1.5rem;
+}
+
+/* Using flex with the row direction to
+align items in a horizontal direction */
+.buttons {
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+.playpause-track,
+.prev-track,
+.next-track {
+padding: 25px;
+opacity: 0.8;
+
+/* Smoothly transition the opacity */
+transition: opacity .2s;
+}
+
+/* Change the opacity when mouse is hovered */
+.playpause-track:hover,
+.prev-track:hover,
+.next-track:hover {
+opacity: 1.0;
+}
+
+/* Define the slider width so that it scales properly */
+.slider_container {
+width: 75%;
+max-width: 400px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Modify the appearance of the slider */
+.seek_slider, .volume_slider {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+height: 5px;
+background: black;
+opacity: 0.7;
+-webkit-transition: .2s;
+transition: opacity .2s;
+}
+
+/* Modify the appearance of the slider thumb */
+.seek_slider::-webkit-slider-thumb,
+.volume_slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+width: 15px;
+height: 15px;
+background: white;
+cursor: pointer;
+border-radius: 50%;
+}
+
+/* Change the opacity when mouse is hovered */
+.seek_slider:hover,
+.volume_slider:hover {
+opacity: 1.0;
+}
+
+.seek_slider {
+width: 60%;
+}
+
+.volume_slider {
+width: 30%;
+}
+
+.current-time,
+.total-duration {
+padding: 10px;
+}
+
+i.fa-volume-down,
+i.fa-volume-up {
+padding: 10px;
+}
+
+/* Change the mouse cursor to a pointer
+when hovered over */
+i.fa-play-circle,
+i.fa-pause-circle,
+i.fa-step-forward,
+i.fa-step-backward {
+cursor: pointer;
+}
+</style>
+<script>
+// Select all the elements in the HTML page
+// and assign them to a variable
+let now_playing = document.querySelector(".now-playing");
+let track_art = document.querySelector(".track-art");
+let track_name = document.querySelector(".track-name");
+let track_artist = document.querySelector(".track-artist");
+
+let playpause_btn = document.querySelector(".playpause-track");
+let next_btn = document.querySelector(".next-track");
+let prev_btn = document.querySelector(".prev-track");
+
+let seek_slider = document.querySelector(".seek_slider");
+let volume_slider = document.querySelector(".volume_slider");
+let curr_time = document.querySelector(".current-time");
+let total_duration = document.querySelector(".total-duration");
+
+// Specify globally used values
+let track_index = 0;
+let isPlaying = false;
+let updateTimer;
+
+// Create the audio element for the player
+let curr_track = document.createElement('audio');
+
+// Define the list of tracks that have to be played
+let track_list = [
+{
+	name: "Night Owl",
+	artist: "Broke For Free",
+	image: "Image URL",
+	path: "Night_Owl.mp3"
+},
+{
+	name: "Enthusiast",
+	artist: "Tours",
+	image: "Image URL",
+	path: "Enthusiast.mp3"
+},
+{
+	name: "Shipping Lanes",
+	artist: "Chad Crouch",
+	image: "Image URL",
+	path: "Shipping_Lanes.mp3",
+},
+];
+</script>
